@@ -1,0 +1,17 @@
+.nav {
+    background: var(--rainbow-gradient); 
+    color: var(--text-white);
+    display: flex;
+    gap: 40px;
+    justify-content: flex-end;
+    width: fit-content;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    padding: 10px 25px;
+    border-radius: 30px;
+}
+
+.nav a {
+    font-weight: bold;
+}

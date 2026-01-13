@@ -1,0 +1,30 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2>Login</h2>
+
+    <form (ngSubmit)="onLogin()">
+      <div class="input-group">
+        <label>Email</label>
+        <input [(ngModel)]="email" name="email" type="email" required />
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <div class="password-wrapper">
+          <input [(ngModel)]="password" name="password" [type]="showPassword ? 'text' : 'password'" required />
+          <span class="password-toggle" (click)="showPassword = !showPassword">
+            <i class="fa-solid" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+          </span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-login">Login</button>
+
+      <p *ngIf="error" class="error">{{ error }}</p>
+    </form>
+
+    <p class="register-link">
+      Noch kein Konto? <a routerLink="/register">Registrieren</a>
+    </p>
+  </div>
+</div>

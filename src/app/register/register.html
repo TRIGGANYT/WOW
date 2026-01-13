@@ -1,0 +1,31 @@
+<div class="register-container">
+  <div class="register-box">
+    <h2>Registrieren</h2>
+
+    <form (ngSubmit)="onRegister()">
+      <div class="input-group">
+        <label>Email</label>
+        <input [(ngModel)]="email" name="email" type="email" required />
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <div class="password-wrapper">
+          <input [(ngModel)]="password" name="password" [type]="showPassword ? 'text' : 'password'" required />
+          <span class="password-toggle" (click)="showPassword = !showPassword">
+            <i class="fa-solid" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+          </span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-register">Registrieren</button>
+
+      <p *ngIf="error" class="error">{{ error }}</p>
+      <p *ngIf="success" class="success">{{ success }}</p>
+    </form>
+
+    <p class="login-link">
+      Bereits ein Konto? <a routerLink="/">Login</a>
+    </p>
+  </div>
+</div>

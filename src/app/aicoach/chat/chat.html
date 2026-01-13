@@ -1,0 +1,40 @@
+<div class="chat-container">
+  
+  <!-- Scrollable Messages Area -->
+  <div class="messages-area" #scrollContainer>
+    <div *ngFor="let msg of messages" 
+         class="message-row" 
+         [ngClass]="{'row-user': msg.sender === 'user', 'row-ai': msg.sender === 'ai'}">
+      
+      <!-- AI Avatar (links) -->
+      <div class="avatar avatar-ai" *ngIf="msg.sender === 'ai'">
+        <i class="fa-solid fa-robot"></i>
+      </div>
+      
+      <div class="message-bubble" 
+           [ngClass]="{'bubble-user': msg.sender === 'user', 'bubble-ai': msg.sender === 'ai'}">
+        <span *ngIf="msg.sender === 'user'">{{ msg.text }}</span>
+        <span *ngIf="msg.sender === 'ai'" [innerHTML]="msg.text | markdown"></span>
+      </div>
+      
+      <!-- User Avatar (rechts) -->
+      <div class="avatar avatar-user" *ngIf="msg.sender === 'user'">
+        <img src="assets/images/WOW_Designer_Profilbild.png" alt="User Avatar">
+      </div>
+    </div>
+  </div>
+
+  <!-- Fixed Input Area -->
+  <div class="input-area">
+    <input 
+      [(ngModel)]="inputValue" 
+      (keydown.enter)="sendMessage()"
+      placeholder="Schreib etwas..."
+      autocomplete="off"
+      [disabled]="isLoading"
+    >
+    <button (click)="sendMessage()" aria-label="Nachricht senden" [disabled]="isLoading" [class.loading]="isLoading">
+      <span class="spinner" *ngIf="isLoading"></span>
+    </button>
+  </div>
+</div>

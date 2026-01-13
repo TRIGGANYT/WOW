@@ -1,0 +1,15 @@
+.ai-mentor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+}
+
+@media (max-width: 768px) {
+  .ai-mentor h1 {
+    font-size: 1.4rem;
+    margin: 1rem 0 0.5rem;
+  }
+}
