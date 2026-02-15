@@ -1,0 +1,58 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Create New Team</h2>
+    
+    <div class="input-group">
+      <label for="teamName">Team Name</label>
+      <input 
+        type="text" 
+        id="teamName" 
+        [(ngModel)]="name" 
+        placeholder="Enter team name..."
+        required
+      >
+    </div>
+
+    <div class="input-group">
+      <label for="teamDescription">Description</label>
+      <textarea 
+        id="teamDescription" 
+        [(ngModel)]="description" 
+        placeholder="What is your team about?"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <div class="input-group">
+      <label>Choose an Icon</label>
+      <div class="icon-grid">
+        @for (ic of icons; track ic) {
+          <button 
+            type="button"
+            class="icon-btn" 
+            [class.selected]="icon === ic"
+            (click)="selectIcon(ic)"
+          >
+            <span [innerHTML]="ic"></span>
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="maxMembers">Max Members</label>
+      <input 
+        type="number" 
+        id="maxMembers" 
+        [(ngModel)]="maxMembers" 
+        min="2" 
+        max="20"
+      >
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="onClose()">Cancel</button>
+      <button class="btn-create" (click)="onSubmit()" [disabled]="!name.trim()">Create Team</button>
+    </div>
+  </div>
+</div>

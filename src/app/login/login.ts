@@ -33,8 +33,12 @@ export class LoginComponent implements OnInit {
         this.auth.saveToken(res.accessToken);
         this.router.navigateByUrl('/home');
       },
-      error: () => {
-        this.error = 'Login fehlgeschlagen';
+      error: (err) => {
+        if (err.error?.needsVerification) {
+          this.router.navigate(['/verify'], { queryParams: { email: err.error.email } });
+          return;
+        }
+        this.error = err.error?.message || 'Login fehlgeschlagen';
       },
     });
   }

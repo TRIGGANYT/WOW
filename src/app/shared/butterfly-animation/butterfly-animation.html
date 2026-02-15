@@ -1,0 +1,15 @@
+<div class="butterfly-overlay" [class.parked]="isParked">
+  <img 
+    *ngIf="isVisible" 
+    class="butterfly" 
+    [class.arriving]="isArriving"
+    [class.parked]="isParked"
+    [style.left.px]="currentX"
+    [style.top.px]="currentY"
+    [style.transform]="'rotate(' + currentRotation + 'deg)'"
+    [style.pointer-events]="'auto'"
+    [style.cursor]="'pointer'"
+    (click)="onButterflyClick()"
+    src="assets/images/WOW_Schmetterling_Oben_No_BG.png" 
+    alt="Butterfly">
+</div>

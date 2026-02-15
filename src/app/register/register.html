@@ -1,31 +1,160 @@
 <div class="register-container">
   <div class="register-box">
-    <h2>Registrieren</h2>
+    <!-- Step Indicator -->
+    <div class="step-indicator">
+      @for (step of [1, 2, 3]; track step) {
+        <div
+          class="step-dot"
+          [class.active]="currentStep === step"
+          [class.done]="currentStep > step"
+        ></div>
+      }
+    </div>
 
-    <form (ngSubmit)="onRegister()">
-      <div class="input-group">
-        <label>Email</label>
-        <input [(ngModel)]="email" name="email" type="email" required />
+    <!-- Step 1: Email & Passwort -->
+    @if (currentStep === 1) {
+      <div class="step-panel">
+        <h2>Willkommen!</h2>
+        <p class="step-subtitle">Erstelle dein Konto</p>
+
+        <div class="input-group">
+          <label>Email</label>
+          <input [(ngModel)]="email" name="email" type="email" placeholder="deine@email.ch" />
+        </div>
+
+        <div class="input-group">
+          <label>Passwort</label>
+          <div class="password-wrapper">
+            <input
+              [(ngModel)]="password"
+              name="password"
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="Mindestens 6 Zeichen"
+            />
+            <span class="password-toggle" (click)="showPassword = !showPassword">
+              <i
+                class="fa-solid"
+                [class.fa-eye]="!showPassword"
+                [class.fa-eye-slash]="showPassword"
+              ></i>
+            </span>
+          </div>
+        </div>
+
+        <p *ngIf="error" class="error">{{ error }}</p>
+
+        <button class="btn-next" (click)="nextStep()">
+          Weiter
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <p class="login-link">Bereits ein Konto? <a routerLink="/">Login</a></p>
       </div>
+    }
 
-      <div class="input-group">
-        <label>Password</label>
-        <div class="password-wrapper">
-          <input [(ngModel)]="password" name="password" [type]="showPassword ? 'text' : 'password'" required />
-          <span class="password-toggle" (click)="showPassword = !showPassword">
-            <i class="fa-solid" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
-          </span>
+    <!-- Step 2: Username, Life Stage, Age -->
+    @if (currentStep === 2) {
+      <div class="step-panel">
+        <h2>Über dich</h2>
+        <p class="step-subtitle">Erzähl uns etwas über dich</p>
+
+        <div class="input-group">
+          <label>Benutzername</label>
+          <input
+            [(ngModel)]="username"
+            name="username"
+            type="text"
+            placeholder="Dein Anzeigename"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>Wo stehst du im Leben?</label>
+          <select [(ngModel)]="lifeStage" name="lifeStage">
+            <option value="" disabled>Bitte wählen...</option>
+            @for (option of lifeStageOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label
+            >Alter: <span class="age-value">{{ age }}</span></label
+          >
+          <input type="range" min="0" max="100" [(ngModel)]="age" name="age" class="age-slider" />
+          <div class="slider-labels">
+            <span>0</span>
+            <span>25</span>
+            <span>50</span>
+            <span>75</span>
+            <span>100</span>
+          </div>
+        </div>
+
+        <p *ngIf="error" class="error">{{ error }}</p>
+
+        <div class="btn-row">
+          <button class="btn-back" (click)="prevStep()">
+            <i class="fa-solid fa-arrow-left"></i>
+            Zurück
+          </button>
+          <button class="btn-next" (click)="nextStep()">
+            Weiter
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
         </div>
       </div>
+    }
 
-      <button type="submit" class="btn-register">Registrieren</button>
+    <!-- Step 3: Hobbies & Interests -->
+    @if (currentStep === 3) {
+      <div class="step-panel">
+        <h2>Deine Interessen</h2>
+        <p class="step-subtitle">Was begeistert dich? Wähle mindestens eins.</p>
 
-      <p *ngIf="error" class="error">{{ error }}</p>
-      <p *ngIf="success" class="success">{{ success }}</p>
-    </form>
+        <!-- Selected hobbies (Apple-style removable) -->
+        @if (hobbies.length > 0) {
+          <div class="selected-hobbies">
+            @for (hobby of hobbies; track hobby; let i = $index) {
+              <span class="selected-chip">
+                <i [class]="hobby.icon"></i> {{ hobby.label }}
+                <span class="chip-remove" (click)="removeHobby(i)">
+                  <i class="fa-solid fa-xmark"></i>
+                </span>
+              </span>
+            }
+          </div>
+        }
 
-    <p class="login-link">
-      Bereits ein Konto? <a routerLink="/">Login</a>
-    </p>
+        <!-- Available hobbies as bubbles -->
+        <div class="hobby-bubbles">
+          @for (hobby of availableHobbies; track hobby) {
+            <button
+              type="button"
+              class="hobby-bubble"
+              [class.selected]="isHobbySelected(hobby)"
+              (click)="toggleHobby(hobby)"
+            >
+              <i [class]="hobby.icon"></i> {{ hobby.label }}
+            </button>
+          }
+        </div>
+
+        <p *ngIf="error" class="error">{{ error }}</p>
+        <p *ngIf="success" class="success">{{ success }}</p>
+
+        <div class="btn-row">
+          <button class="btn-back" (click)="prevStep()">
+            <i class="fa-solid fa-arrow-left"></i>
+            Zurück
+          </button>
+          <button class="btn-register" (click)="onRegister()">
+            Registrieren
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+      </div>
+    }
   </div>
 </div>

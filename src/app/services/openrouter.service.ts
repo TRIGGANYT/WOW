@@ -8,27 +8,35 @@ export class OpenRouterService {
   private openai: OpenAI;
   private history: Array<{ role: 'system' | 'user' | 'assistant', content: string }> = [];
 
+  private readonly systemPrompt = 'Du bist ein motivierender AI-Coach. Antworte kurz und hilfreich. Antworte immer auf Basis der Schweizer Standards';
+
   constructor() {
     this.openai = new OpenAI({
-      // 1. Dein "Masterkey" von openrouter.ai
       apiKey: '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', 
-      
-      // 2. Die OpenRouter Adresse
       baseURL: 'https://openrouter.ai/api/v1', 
-      
-      // 3. WICHTIG: Erlaubt Browser-Nutzung & setzt die nötigen Header
       dangerouslyAllowBrowser: true,
       defaultHeaders: {
-        'HTTP-Referer': 'http://localhost:4200', // Deine Website
-        'X-Title': 'lern-app',              // Name deiner App
+        'HTTP-Referer': 'http://localhost:4200',
+        'X-Title': 'lern-app',
       }
     });
 
-    // Dein System-Prompt
-    this.history.push({ 
-      role: 'system', 
-      content: 'Du bist ein motivierender AI-Coach. Antworte kurz und hilfreich. Antworte immer auf Basis der Schweizer Standards' 
-    });
+    this.history.push({ role: 'system', content: this.systemPrompt });
+  }
+
+  /** Restore history from saved conversation messages */
+  restoreHistory(messages: Array<{ role: 'system' | 'user' | 'assistant', content: string }>): void {
+    this.history = messages.length > 0 ? [...messages] : [{ role: 'system', content: this.systemPrompt }];
+  }
+
+  /** Reset history to just the system prompt (new conversation) */
+  resetHistory(): void {
+    this.history = [{ role: 'system', content: this.systemPrompt }];
+  }
+
+  /** Get current history for saving */
+  getHistory(): Array<{ role: string, content: string }> {
+    return [...this.history];
   }
 
   async generateText(prompt: string): Promise<string> {
@@ -36,33 +44,7 @@ export class OpenRouterService {
 
     try {
       const completion = await this.openai.chat.completions.create({
-        // === HIER WÄHLST DU DAS MODELL ===
-        // Gemini
-        // 'google/gemini-2.5-flash:free'  (Gratis & extrem schnell!)
-        // 'google/gemini-pro-1.5-exp:free'
-        // 'google/gemma-2-9b-it:free'
-
-        //DeepSeek
-        // 'deepseek/deepseek-chat:free'  
-        // 'deepseek/deepseek-r1:free'
-        
-        // Anthropic
-        // 'anthropic/claude-3.5-sonnet' 
-        
-        // Groq
-        // 'groq/llama-3.1-8b-instant'
-        // 'groq/llama-3.3-70b-versatile'
-
-        // Meta
-        // 'meta-llama/llama-3.2-3b-instruct:free'
-        // 'meta-llama/llama-3.1-8b-instruct:free'
-        // 'meta-llama/llama-3.3-70b-instruct:free'
-
-        // Xiaomi
-        // 'xiaomi/mimo-v2-flash:free'
-
-        model: 'xiaomi/mimo-v2-flash:free', 
-        
+        model: 'arcee-ai/trinity-large-preview:free', 
         messages: this.history as any,
       });
 
@@ -73,6 +55,35 @@ export class OpenRouterService {
     } catch (error) {
       console.error('OpenRouter Fehler:', error);
       return 'Fehler bei der Verbindung zum AI-Coach.';
+    }
+  }
+
+  /** Generate a short chat title from user's first message (separate call, no history impact) */
+  async generateTitle(userMessage: string): Promise<string> {
+    try {
+      const completion = await this.openai.chat.completions.create({
+        model: 'arcee-ai/trinity-large-preview:free',
+        messages: [
+          { role: 'system', content: `Du bist ein Experte für präzise Zusammenfassungen. Deine Aufgabe ist es, für die folgende Benutzerfrage einen passenden Titel zu generieren.
+
+Strikte Formatvorgaben:
+- Länge: Der Titel muss zwingend zwischen 3 und 5 Wörtern liegen.
+- Inhaltlicher Fokus: Der Titel muss den spezifischen Kern des Themas treffen. Vermeide allgemeine Floskeln.
+- Schreibstil: Nutze keine Gedankenstriche oder Bindestriche. Verwende ausschliesslich Schweizer Tastaturlayout. Kein ß, schreibe stattdessen immer "ss".
+- Struktur: Gib lediglich den generierten Titel aus. Keine Einleitungssätze, keine Erklärungen.
+
+Beispiel:
+Input: was ist scrum in 2 sätzen erklärt?
+Output: scrum in 2 sätzen` },
+          { role: 'user', content: userMessage }
+        ],
+      });
+      const raw = completion.choices[0].message?.content?.trim() || '';
+      // Force max 5 words no matter what the model returns
+      const title = raw.split(/\s+/).slice(0, 5).join(' ').replace(/ß/g, 'ss');
+      return title || userMessage.substring(0, 25);
+    } catch {
+      return userMessage.substring(0, 25) + (userMessage.length > 25 ? '...' : '');
     }
   }
 }

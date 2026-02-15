@@ -1,0 +1,146 @@
+<div class="team-detail-page">
+  <!-- Left Panel: Team Detail -->
+  <div class="panel team-info-panel">
+    <h2>Team Detail</h2>
+    <div class="team-actions">
+      <button class="btn-leave" (click)="leaveRoom()">Raum verlassen</button>
+      <button class="btn-dissolve" (click)="voteDissolve()" [disabled]="hasVoted()">
+        {{ hasVoted() ? 'Bereits gestimmt' : 'Für Auflösung stimmen' }}
+      </button>
+    </div>
+
+    <div class="info-items">
+      <p class="info-item">
+        <i class="fa-solid fa-heading"></i> Titel: {{ team?.name || 'Lädt...' }}
+      </p>
+      <p class="info-item">
+        <i class="fa-solid fa-clock"></i> Besprechungsdauer: {{ timerDisplay }}
+      </p>
+      <p class="info-item" *ngIf="team?.members?.length">
+        <i class="fa-solid fa-vote-yea"></i> Auflösung: {{ getCurrentVotes() }}/{{
+          getVotesNeeded()
+        }}
+        Stimmen
+      </p>
+    </div>
+
+    <h3>Mitglieder ({{ team?.members?.length || 0 }}/{{ team?.maxMembers || 8 }})</h3>
+    <div class="members-list">
+      @if (team?.members?.length) {
+        @for (member of team!.members; track member._id) {
+          <div class="member-row">
+            <div class="member-avatar">
+              <img src="assets/images/WOW_Designer_Profilbild_2.png" alt="Member" />
+            </div>
+            <span class="member-name">{{ getMemberDisplayName(member) }}</span>
+            @if (member._id !== currentUserId) {
+              <button class="btn-rate" (click)="openRating(member)" title="Bewerten">
+                <i class="fa-solid fa-star"></i>
+              </button>
+            }
+          </div>
+        }
+      } @else {
+        <p class="no-members">Keine Mitglieder</p>
+      }
+    </div>
+  </div>
+
+  <!-- Middle Panel: Team Chat -->
+  <div class="panel chat-panel">
+    <h2>Team Chat</h2>
+    <div class="chat-messages" #chatContainer>
+      @if (messages.length === 0) {
+        <p class="no-messages">Noch keine Nachrichten. Starte die Unterhaltung!</p>
+      }
+      @for (msg of messages; track msg._id) {
+        <div
+          class="message-row"
+          [class.row-user]="isMyMessage(msg)"
+          [class.row-other]="!isMyMessage(msg)"
+        >
+          @if (!isMyMessage(msg)) {
+            <div class="avatar avatar-other">
+              <img src="assets/images/WOW_Designer_Profilbild_2.png" alt="Avatar" />
+            </div>
+          }
+          <div class="message-content" [class.content-user]="isMyMessage(msg)">
+            @if (!isMyMessage(msg)) {
+              <span class="sender-name">{{ getSenderName(msg) }}</span>
+            }
+            <div
+              class="message-bubble"
+              [class.bubble-user]="isMyMessage(msg)"
+              [class.bubble-other]="!isMyMessage(msg)"
+            >
+              {{ msg.text }}
+            </div>
+          </div>
+          @if (isMyMessage(msg)) {
+            <div class="avatar avatar-user">
+              <img src="assets/images/WOW_Designer_Profilbild.png" alt="Avatar" />
+            </div>
+          }
+        </div>
+      }
+    </div>
+    <div class="chat-input-area">
+      <input
+        type="text"
+        placeholder="schreibe etwas ..."
+        [(ngModel)]="newMessage"
+        (keyup.enter)="sendMessage()"
+      />
+      <button class="btn-send" (click)="sendMessage()">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Right Panel: Challenge -->
+  <div class="panel challenge-panel">
+    <h2>Challenge - {{ team?.name || 'Steuern' }}</h2>
+    <p class="challenge-question">Wie kannst du Steuern Sparen?</p>
+
+    <div class="challenge-options">
+      <div class="option">A) Mehrfach dieselbe Rechnung für das Einkommen abziehen</div>
+      <div class="option">B) Das Einzahlen in die 3. Säule (Pillar 3a) nutzen</div>
+      <div class="option">C) Arbeitslos sein</div>
+      <div class="option">D) Nach Madeira auswandern</div>
+    </div>
+
+    <p class="next-question">Was bedeutet Steuerpflichtig?</p>
+    <div class="answer-input">
+      <input type="text" placeholder="schreibe etwas ...." />
+    </div>
+    <button class="btn-challenge-xp" (click)="addChallengeXp()">
+      <i class="fa-solid fa-bolt"></i> +50 Challenge XP (Test)
+    </button>
+  </div>
+</div>
+
+<!-- Rating Overlay -->
+@if (showRatingOverlay) {
+  <div class="rating-overlay" (click)="closeRating()">
+    <div class="rating-modal" (click)="$event.stopPropagation()">
+      <h3>Bewerte {{ ratingTarget ? getMemberDisplayName(ratingTarget!) : '' }}</h3>
+      <p class="rating-subtitle">Wie gut hat dir der Austausch geholfen?</p>
+      <div class="stars-row">
+        @for (star of [1, 2, 3, 4, 5]; track star) {
+          <button class="star-btn" [class.filled]="star <= selectedStars" (click)="setStars(star)">
+            <i class="fa-solid fa-star"></i>
+          </button>
+        }
+      </div>
+      @if (ratingFeedback) {
+        <p class="rating-feedback">{{ ratingFeedback }}</p>
+      }
+      <div class="rating-actions">
+        <button class="btn-cancel-rating" (click)="closeRating()">Abbrechen</button>
+        <button class="btn-submit-rating" [disabled]="!selectedStars" (click)="submitRating()">
+          Bewerten
+        </button>
+      </div>
+    </div>
+  </div>
+}

@@ -1,59 +1,97 @@
-# LernApp
+# WOW - DialogApp �
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.0.
+Eine Plattform für Lernen durch Dialog. Hier steht der Austausch im Mittelpunkt – sei es mit anderen Lernenden in Teams oder mit dem AI-Coach. Das Wissen entsteht nicht durch Pauken, sondern durch Kommunikation.
 
-## Development server
+![WOW App Screenshot](src/assets/images/wow-background.png)
 
-To start a local development server, run:
+## 💡 Philosophie
+
+Lernen passiert am besten im Gespräch. WOW fördert diesen Austausch:
+
+- **Miteinander reden:** In Team-Rooms diskutieren und voneinander lernen.
+- **Mit KI reflektieren:** Der AI-Coach ist dein Dialogpartner, der dir hilft, Themen zu durchdringen.
+- **Wachsen durch Austausch:** XP gibt es nicht nur für Aufgaben, sondern vor allem für wertvolle Beiträge im Dialog.
+
+## ✨ Features
+
+- **Dialog-Teams �️**: Live-Chat Räume, in denen Diskussionen und Zusammenarbeit im Vordergrund stehen.
+- **AI Dialog-Partner 🤖**: Ein intelligenter Coach (OpenRouter), der dich in tiefgehende Gespräche verwickelt, statt nur Antworten zu liefern.
+- **Avatar Entwicklung 🧝**: Dein Elf wächst mit der Qualität deiner Interaktionen (Explorer -> Designer -> Master).
+- **XP durch Kommunikation 📊**:
+  - **Challenge XP**: Für das aktive Einbringen in Diskussionen.
+  - **Mentor XP**: Für das Erklären und Helfen im Dialog.
+- **Sicherer Austausch 🔐**: Verifizierte Accounts (Email-Code) für eine vertrauensvolle Umgebung.
+
+## 🛠️ Tech Stack
+
+- **Frontend**:
+  - Angular 19 (Standalone Components, Signals)
+  - TypeScript
+  - Custom UI (Fokus auf Lesbarkeit und Ästhetik)
+- **Backend**:
+  - Node.js & Express
+  - REST API für Echtzeit-nahe Kommunikation
+- **Datenbank**:
+  - MongoDB Atlas (Cloud)
+- **Services**:
+  - Nodemailer (Verifizierung)
+  - OpenRouter API (AI-Dialog)
+
+## 🚀 Installation & Start
+
+### Voraussetzungen
+
+- Node.js & npm installiert
+- MongoDB Atlas Connection String
+- SMTP Server Zugangsdaten
+
+### 1. Projekt klonen
 
 ```bash
+git clone <repository-url>
+cd lern-app
+```
+
+### 2. Backend starten (Kommunikations-Server)
+
+```bash
+cd backend
+npm install
+```
+
+Erstelle eine `.env` Datei im `backend` Ordner:
+
+```env
+PORT=3000
+MONGODB_URI=mongodb+srv://...
+JWT_SECRET=dein_secret
+SMTP_HOST=...
+SMTP_PORT=465
+SMTP_USER=...
+SMTP_PASS='...'
+```
+
+```bash
+npm run dev
+```
+
+### 3. App starten
+
+```bash
+cd ..
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Öffne `http://localhost:4200` für den Dialog.
 
-## Code scaffolding
+## 📂 Struktur
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- `src/app/aicoach`: Der KI-Dialogpartner
+- `src/app/teamup`: Die Team-Chat-Räume
+- `src/app/profile`: Dein Avatar und Fortschritt
+- `backend/`: API für Nachrichten und Benutzerdaten
 
-```bash
-ng generate component component-name
-```
+## 🤝 Mitwirken
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Wir freuen uns über Pull Requests, die den Austausch auf der Plattform weiter fördern!

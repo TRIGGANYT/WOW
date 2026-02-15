@@ -1,0 +1,25 @@
+<div class="team-card" [class.has-butterfly]="showButterfly">
+  <!-- Butterfly badge for newly created teams -->
+  @if (showButterfly) {
+    <img 
+      class="team-butterfly-badge" 
+      src="assets/images/WOW_Schmetterling_Oben_No_BG.png" 
+      alt="New Team!"
+      (click)="onButterflyClick($event)">
+  }
+  
+  <div class="team-icon" [innerHTML]="team.icon"></div>
+  <h3 class="team-name">{{ team.name }}</h3>
+  <p class="team-description">{{ team.description }}</p>
+  <div class="team-members">
+    <span>Members:</span>
+    <span class="members-count">{{ team.members.length }}/{{ team.maxMembers }}</span>
+  </div>
+  @if (isMember) {
+    <button class="btn-leave" (click)="onLeave()">Leave</button>
+  } @else {
+    <button class="btn-join" (click)="onJoin()" [disabled]="team.members.length >= team.maxMembers">
+      {{ team.members.length >= team.maxMembers ? 'Full' : 'Join' }}
+    </button>
+  }
+</div>

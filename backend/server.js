@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const authRoutes = require('./routes/auth');
+const teamRoutes = require('./routes/teams');
+const conversationRoutes = require('./routes/conversations');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +16,8 @@ app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/teams', teamRoutes);
+app.use('/api/conversations', conversationRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -21,7 +25,8 @@ app.get('/api/health', (req, res) => {
 });
 
 // Connect to MongoDB and start server
-mongoose.connect(process.env.MONGODB_URI)
+mongoose
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('Connected to MongoDB Atlas');
     app.listen(PORT, () => {

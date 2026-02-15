@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "lern-app": {
+    "wow": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -64,10 +64,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "lern-app:build:production"
+              "buildTarget": "wow:build:production"
             },
             "development": {
-              "buildTarget": "lern-app:build:development"
+              "buildTarget": "wow:build:development"
             }
           },
           "defaultConfiguration": "development"

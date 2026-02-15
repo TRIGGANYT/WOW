@@ -16,11 +16,30 @@ export class AuthService {
     });
   }
 
-  register(email: string, password: string): Observable<{ message: string }> {
-    return this.http.post<{ message: string }>(`${this.apiUrl}/register`, {
+  register(email: string, password: string, username: string, age: number | null, hobbies: string[], lifeStage: string): Observable<{ message: string; email: string }> {
+    return this.http.post<{ message: string; email: string }>(`${this.apiUrl}/register`, {
       email,
       password,
+      username,
+      age,
+      hobbies,
+      lifeStage,
     });
+  }
+
+  verifyEmail(email: string, code: string): Observable<{ message: string; accessToken: string }> {
+    return this.http.post<{ message: string; accessToken: string }>(`${this.apiUrl}/verify`, { email, code });
+  }
+
+  resendCode(email: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrl}/resend-code`, { email });
+  }
+
+  checkAvailable(email?: string, username?: string): Observable<{ emailAvailable?: boolean; usernameAvailable?: boolean }> {
+    const params: any = {};
+    if (email) params.email = email;
+    if (username) params.username = username;
+    return this.http.get<{ emailAvailable?: boolean; usernameAvailable?: boolean }>(`${this.apiUrl}/check-available`, { params });
   }
 
   saveToken(token: string) {
