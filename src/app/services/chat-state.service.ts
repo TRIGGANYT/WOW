@@ -27,7 +27,7 @@ export class ChatStateService {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
 
-  private apiUrl = 'http://localhost:3000/api/conversations';
+  private apiUrl = '/api/conversations';
 
   // Using signals for automatic change detection
   messages = signal<ChatMessage[]>([]);

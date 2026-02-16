@@ -30,8 +30,8 @@ export interface Rating {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/api/auth/me';
-  private authApiUrl = 'http://localhost:3000/api/auth';
+  private apiUrl = '/api/auth/me';
+  private authApiUrl = '/api/auth';
 
   // Cached user data
   private cachedUser = new BehaviorSubject<User | null>(null);

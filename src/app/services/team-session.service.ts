@@ -36,7 +36,7 @@ export class TeamSessionService {
   private sendBeaconLeave(): void {
     if (!this.activeTeamId || !this.activeUserId) return;
 
-    const url = `http://localhost:3000/api/teams/${this.activeTeamId}/beacon-leave`;
+    const url = `/api/teams/${this.activeTeamId}/beacon-leave`;
     const data = JSON.stringify({ userId: this.activeUserId });
     navigator.sendBeacon(url, new Blob([data], { type: 'text/plain' }));
 
