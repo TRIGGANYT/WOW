@@ -1,0 +1,122 @@
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	deleted:    .editorconfig
+	deleted:    angular.json
+	modified:   backend/package-lock.json
+	modified:   backend/package.json
+	modified:   backend/routes/auth.js
+	modified:   backend/routes/teams.js
+	modified:   backend/server.js
+	modified:   backend/utils/email.js
+	deleted:    package-lock.json
+	deleted:    package.json
+	deleted:    public/favicon.ico
+	deleted:    src/app/aicoach/aicoach.css
+	deleted:    src/app/aicoach/aicoach.html
+	deleted:    src/app/aicoach/aicoach.spec.ts
+	deleted:    src/app/aicoach/aicoach.ts
+	deleted:    src/app/aicoach/chat/chat.css
+	deleted:    src/app/aicoach/chat/chat.html
+	deleted:    src/app/aicoach/chat/chat.spec.ts
+	deleted:    src/app/aicoach/chat/chat.ts
+	deleted:    src/app/app.config.ts
+	deleted:    src/app/app.css
+	deleted:    src/app/app.html
+	deleted:    src/app/app.routes.ts
+	deleted:    src/app/app.spec.ts
+	deleted:    src/app/app.ts
+	deleted:    src/app/assets/images/WOW_Designer_Profilbild.png
+	deleted:    src/app/assets/images/WOW_Designer_Profilbild_2.png
+	deleted:    src/app/assets/images/WOW_Elf_Designer_No_BG.png
+	deleted:    src/app/assets/images/WOW_Elf_Explorer_No_BG.png
+	deleted:    src/app/assets/images/WOW_Elf_Explorer_Seite_No_BG.png
+	deleted:    src/app/assets/images/WOW_Elf_Master_No_BG.png
+	deleted:    src/app/assets/images/WOW_Hintergrund_Home_Podest.png
+	deleted:    src/app/assets/images/WOW_Schmetterling_Oben_No_BG.png
+	deleted:    src/app/assets/images/logo.png
+	deleted:    src/app/challenges/challenges.css
+	deleted:    src/app/challenges/challenges.html
+	deleted:    src/app/challenges/challenges.spec.ts
+	deleted:    src/app/challenges/challenges.ts
+	deleted:    src/app/home/home.css
+	deleted:    src/app/home/home.html
+	deleted:    src/app/home/home.spec.ts
+	deleted:    src/app/home/home.ts
+	deleted:    src/app/login/login.css
+	deleted:    src/app/login/login.html
+	deleted:    src/app/login/login.spec.ts
+	deleted:    src/app/login/login.ts
+	deleted:    src/app/nav/nav.css
+	deleted:    src/app/nav/nav.html
+	deleted:    src/app/nav/nav.spec.ts
+	deleted:    src/app/nav/nav.ts
+	deleted:    src/app/pipes/markdown.pipe.ts
+	deleted:    src/app/profile/profile.css
+	deleted:    src/app/profile/profile.html
+	deleted:    src/app/profile/profile.spec.ts
+	deleted:    src/app/profile/profile.ts
+	deleted:    src/app/register/register.css
+	deleted:    src/app/register/register.html
+	deleted:    src/app/register/register.ts
+	deleted:    src/app/services/auth.guard.ts
+	deleted:    src/app/services/auth.interceptor.ts
+	deleted:    src/app/services/auth.service.ts
+	deleted:    src/app/services/butterfly-notification.service.ts
+	deleted:    src/app/services/chat-state.service.ts
+	deleted:    src/app/services/deepseek.service.ts
+	deleted:    src/app/services/gemini.service.ts
+	deleted:    src/app/services/openrouter.service.ts
+	deleted:    src/app/services/team-session.service.ts
+	deleted:    src/app/services/team.service.ts
+	deleted:    src/app/services/user.service.ts
+	deleted:    src/app/shared/butterfly-animation/butterfly-animation.css
+	deleted:    src/app/shared/butterfly-animation/butterfly-animation.html
+	deleted:    src/app/shared/butterfly-animation/butterfly-animation.ts
+	deleted:    src/app/teamup/create-team-modal/create-team-modal.css
+	deleted:    src/app/teamup/create-team-modal/create-team-modal.html
+	deleted:    src/app/teamup/create-team-modal/create-team-modal.ts
+	deleted:    src/app/teamup/team-card/team-card.css
+	deleted:    src/app/teamup/team-card/team-card.html
+	deleted:    src/app/teamup/team-card/team-card.ts
+	deleted:    src/app/teamup/team-detail/team-detail.css
+	deleted:    src/app/teamup/team-detail/team-detail.html
+	deleted:    src/app/teamup/team-detail/team-detail.ts
+	deleted:    src/app/teamup/teamup.css
+	deleted:    src/app/teamup/teamup.html
+	deleted:    src/app/teamup/teamup.spec.ts
+	deleted:    src/app/teamup/teamup.ts
+	deleted:    src/app/verify/verify.css
+	deleted:    src/app/verify/verify.html
+	deleted:    src/app/verify/verify.ts
+	deleted:    src/index.html
+	deleted:    src/main.ts
+	deleted:    src/proxy.conf.json
+	deleted:    src/styles.css
+	deleted:    tsconfig.app.json
+	deleted:    tsconfig.json
+	deleted:    tsconfig.spec.json
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	assets/
+	css/
+	dump_out2.js
+	favicon.ico
+	files.bin
+	files.txt
+	find_corrupt_files.js
+	find_corrupt_head.js
+	head_files.bin
+	index.html
+	js/
+	out.bin
+	out.txt
+	out2.bin
+	out_status.bin
+	remove_corrupt_files.js
+
+no changes added to commit (use "git add" and/or "git commit -a")

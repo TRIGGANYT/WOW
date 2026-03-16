@@ -1,10 +1,18 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const rateLimit = require('express-rate-limit');
 const User = require('../models/User');
 const { sendVerificationEmail, generateCode } = require('../utils/email');
 
 const router = express.Router();
 const authMiddleware = require('../middleware/auth');
+
+// Rate limiter for auth routes
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 Minuten
+  max: 10,
+  message: { message: 'Zu viele Anfragen. Bitte warte 15 Minuten.' },
+});
 
 // GET /api/auth/me
 router.get('/me', authMiddleware, async (req, res) => {
@@ -47,7 +55,7 @@ router.put('/me', authMiddleware, async (req, res) => {
     const updated = await User.findById(user._id).select('-password');
     res.json(updated);
   } catch (error) {
-    res.status(500).json({ message: 'Server Fehler', error: error.message });
+    res.status(500).json({ message: 'Server Fehler' });
   }
 });
 
@@ -74,9 +82,20 @@ router.get('/check-available', async (req, res) => {
 });
 
 // POST /api/auth/register
-router.post('/register', async (req, res) => {
+router.post('/register', authLimiter, async (req, res) => {
   try {
     const { email, password, username, age, hobbies, lifeStage } = req.body;
+
+    // Email-Format prüfen
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      return res.status(400).json({ message: 'Ungültige Email-Adresse' });
+    }
+
+    // Passwort-Validierung
+    if (!password || password.length < 8) {
+      return res.status(400).json({ message: 'Passwort muss mindestens 8 Zeichen lang sein' });
+    }
 
     // Validate hobbies
     if (!hobbies || !Array.isArray(hobbies) || hobbies.length === 0) {
@@ -135,7 +154,7 @@ router.post('/register', async (req, res) => {
 });
 
 // POST /api/auth/verify - Verify email with 6-digit code
-router.post('/verify', async (req, res) => {
+router.post('/verify', authLimiter, async (req, res) => {
   try {
     const { email, code } = req.body;
 
@@ -177,7 +196,7 @@ router.post('/verify', async (req, res) => {
 });
 
 // POST /api/auth/resend-code - Resend verification code
-router.post('/resend-code', async (req, res) => {
+router.post('/resend-code', authLimiter, async (req, res) => {
   try {
     const { email } = req.body;
 
@@ -206,7 +225,7 @@ router.post('/resend-code', async (req, res) => {
 });
 
 // POST /api/auth/login
-router.post('/login', async (req, res) => {
+router.post('/login', authLimiter, async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -299,7 +318,7 @@ router.post('/add-xp', authMiddleware, async (req, res) => {
       challengeLevel: user.challengeLevel,
     });
   } catch (error) {
-    res.status(500).json({ message: 'Server Fehler', error: error.message });
+    res.status(500).json({ message: 'Server Fehler' });
   }
 });
 

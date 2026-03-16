@@ -1,0 +1,38 @@
+/* Global styles — copied from Angular src/styles.css */
+:root {
+  --bg-dark: #0a0a1a;
+  --text-white: #ffffff;
+  --glass-bg: rgba(20, 20, 40, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+
+  --rainbow-gradient: linear-gradient(
+    90deg,
+    #e85d04 0%,
+    #f48c06 10%,
+    #ff6b6b 25%,
+    #ee5a9d 40%,
+    #9d4edd 55%,
+    #7b2cbf 65%,
+    #5390d9 80%,
+    #48bfe3 90%,
+    #56cfa5 100%
+  );
+}
+
+* {
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  color: var(--text-white);
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-white);
+}
+
+html,
+body {
+  height: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+}

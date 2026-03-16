@@ -1,0 +1,30 @@
+.nav {
+    background: var(--rainbow-gradient); 
+    color: var(--text-white);
+    display: flex;
+    gap: 40px;
+    justify-content: flex-end;
+    width: fit-content;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    padding: 10px 25px;
+    border-radius: 30px;
+    z-index: 100;
+}
+
+.nav a {
+    font-weight: bold;
+    position: relative;
+    isolation: isolate;
+}
+
+.nav a.active::after {
+    content: '';
+    position: absolute;
+    inset: -4px -10px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+    z-index: -1;
+}

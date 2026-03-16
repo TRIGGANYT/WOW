@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -9,20 +10,12 @@ const transporter = nodemailer.createTransport({
     pass: process.env.SMTP_PASS,
   },
   tls: {
-    rejectUnauthorized: false,
+    rejectUnauthorized: true,
   },
   authMethod: 'LOGIN',
 });
 
-// Debug: log SMTP config on startup (mask password)
-const passLen = (process.env.SMTP_PASS || '').length;
-console.log(
-  `SMTP config: host=${process.env.SMTP_HOST}, port=${process.env.SMTP_PORT}, user=${process.env.SMTP_USER}, pass=${'*'.repeat(passLen)} (${passLen} chars)`,
-);
-
-/**
- * Send a 6-digit verification code to a user's email
- */
+/* Send a 6-digit verification code to a user's email */
 async function sendVerificationEmail(toEmail, code) {
   const mailOptions = {
     from: `"WOW - sei WOW" <${process.env.SMTP_USER}>`,
@@ -51,11 +44,9 @@ async function sendVerificationEmail(toEmail, code) {
   return transporter.sendMail(mailOptions);
 }
 
-/**
- * Generate a random 6-digit verification code
- */
+/* Generate a random 6-digit verification code */
 function generateCode() {
-  return Math.floor(100000 + Math.random() * 900000).toString();
+  return crypto.randomInt(100000, 999999).toString();
 }
 
 module.exports = { sendVerificationEmail, generateCode };

@@ -1,0 +1,179 @@
+.page-home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  height: 100%;
+  background-image: url('../assets/images/WOW_Hintergrund_Home_Podest.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.home-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 0;
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.home-content a {
+  font-size: 2rem;
+  color: #333;
+  text-decoration: none;
+}
+
+/* large icons */
+.home-content i {
+  font-size: 100px;
+}
+
+.elf-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin: 0 -30px;
+}
+
+.elf-link .elf {
+  max-height: 350px;
+  width: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.elf-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
+.elf-title-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  background: var(--rainbow-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-top: 105px;
+  z-index: 3;
+}
+
+/* XP Bar Containers */
+.xp-bar-container {
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 1;
+}
+
+.xp-title {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--rainbow-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  white-space: nowrap;
+}
+
+.xp-value {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.xp-bar-container.left {
+  left: -60px;
+}
+
+.xp-bar-container.right {
+  right: -60px;
+}
+
+/* Progress Bar Track */
+.xp-progress {
+  flex: 1;
+  width: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  height: 300px;
+  /* Fixed height for the bar */
+}
+
+/* Progress Fill */
+.xp-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 6px;
+  transition: height 1s ease-out;
+}
+
+.mentor-gradient {
+  background: linear-gradient(to top, #48bfe3 0%, #5390d9 25%, #9d4edd 50%, #f48c06 75%, #e85d04 100%);
+  background-size: 100% 300px;
+  background-position: bottom;
+  box-shadow: 0 0 10px rgba(157, 78, 221, 0.5);
+}
+
+.challenge-gradient {
+  background: linear-gradient(to top, #48bfe3 0%, #5390d9 25%, #9d4edd 50%, #f48c06 75%, #e85d04 100%);
+  background-size: 100% 300px;
+  background-position: bottom;
+  box-shadow: 0 0 10px rgba(157, 78, 221, 0.5);
+}
+
+/* Icons & Level Badge */
+.xp-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.xp-icon i {
+  font-size: 24px !important;
+  color: var(--text-white);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.level-badge {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.elf-placeholder {
+  height: 300px;
+  width: 200px;
+  background: transparent;
+}
