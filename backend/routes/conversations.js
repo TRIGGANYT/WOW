@@ -10,7 +10,7 @@ router.use(authMiddleware);
 router.get('/', async (req, res) => {
   try {
     const conversations = await Conversation.find({ user: req.user.userId })
-      .select('title updatedAt')
+      .select('title folder updatedAt')
       .sort({ updatedAt: -1 });
     res.json(conversations);
   } catch (err) {
@@ -51,10 +51,11 @@ router.post('/', async (req, res) => {
 // PUT /api/conversations/:id — update conversation (messages, title)
 router.put('/:id', async (req, res) => {
   try {
-    const { title, messages } = req.body;
+    const { title, messages, folder } = req.body;
     const update = {};
     if (title) update.title = title;
     if (messages) update.messages = messages;
+    if (folder !== undefined) update.folder = folder;
 
     const conversation = await Conversation.findOneAndUpdate(
       { _id: req.params.id, user: req.user.userId },

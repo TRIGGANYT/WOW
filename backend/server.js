@@ -18,6 +18,7 @@ const authRoutes = require('./routes/auth');
 const teamRoutes = require('./routes/teams');
 const conversationRoutes = require('./routes/conversations');
 const folderRoutes = require('./routes/folders');
+const aiRoutes = require('./routes/ai');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -38,6 +39,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/teams', teamRoutes);
 app.use('/api/conversations', conversationRoutes);
 app.use('/api/folders', folderRoutes);
+app.use('/api/ai', aiRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

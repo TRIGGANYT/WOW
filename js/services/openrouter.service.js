@@ -1,9 +1,6 @@
 // js/services/openrouter.service.js — replaces Angular OpenRouterService
-// Uses fetch() directly instead of the openai npm package
+// Now proxies through backend /api/ai/chat to keep the API key secure
 
-const API_KEY = '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';
-const BASE_URL = 'https://openrouter.ai/api/v1/chat/completions';
-const MODEL = 'arcee-ai/trinity-large-preview:free';
 const SYSTEM_PROMPT = 'Du bist ein motivierender AI-Coach. Antworte kurz und hilfreich. Antworte immer auf Basis der Schweizer Standards';
 
 let history = [{ role: 'system', content: SYSTEM_PROMPT }];
@@ -20,28 +17,43 @@ export function getHistory() {
   return [...history];
 }
 
+/**
+ * Calls the backend AI proxy endpoint which handles the OpenRouter API key securely.
+ */
+async function fetchViaBackend(messages, maxRetries = 3) {
+  try {
+    const response = await fetch('/api/ai/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ messages, maxRetries }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.warn(`Backend AI proxy error: ${response.status}`, errorData);
+      return null;
+    }
+
+    const data = await response.json();
+    return data.content || null;
+  } catch (err) {
+    console.error('Failed to reach backend AI proxy:', err.message);
+    return null;
+  }
+}
+
 export async function generateText(prompt) {
   history.push({ role: 'user', content: prompt });
 
   try {
-    const response = await fetch(BASE_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${API_KEY}`,
-        'HTTP-Referer': window.location.origin,
-        'X-Title': 'lern-app',
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        messages: history,
-      }),
-    });
-
-    const data = await response.json();
-    const text = data.choices?.[0]?.message?.content || '';
-    history.push({ role: 'assistant', content: text });
-    return text;
+    const text = await fetchViaBackend(history);
+    if (text) {
+      history.push({ role: 'assistant', content: text });
+      return text;
+    }
+    return 'Der AI-Coach ist gerade überlastet. Bitte versuche es in ein paar Sekunden erneut.';
   } catch (error) {
     console.error('OpenRouter Fehler:', error);
     return 'Fehler bei der Verbindung zum AI-Coach.';
@@ -50,20 +62,10 @@ export async function generateText(prompt) {
 
 export async function generateTitle(userMessage) {
   try {
-    const response = await fetch(BASE_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${API_KEY}`,
-        'HTTP-Referer': window.location.origin,
-        'X-Title': 'lern-app',
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        messages: [
-          {
-            role: 'system',
-            content: `Du bist ein Experte für präzise Zusammenfassungen. Deine Aufgabe ist es, für die folgende Benutzerfrage einen passenden Titel zu generieren.
+    const titleMessages = [
+      {
+        role: 'system',
+        content: `Du bist ein Experte für präzise Zusammenfassungen. Deine Aufgabe ist es, für die folgende Benutzerfrage einen passenden Titel zu generieren.
 
 Strikte Formatvorgaben:
 - Länge: Der Titel muss zwingend zwischen 3 und 5 Wörtern liegen.
@@ -74,17 +76,18 @@ Strikte Formatvorgaben:
 Beispiel:
 Input: was ist scrum in 2 sätzen erklärt?
 Output: scrum in 2 sätzen`,
-          },
-          { role: 'user', content: userMessage },
-        ],
-      }),
-    });
+      },
+      { role: 'user', content: userMessage },
+    ];
 
-    const data = await response.json();
-    const raw = data.choices?.[0]?.message?.content?.trim() || '';
-    const title = raw.split(/\s+/).slice(0, 5).join(' ').replace(/ß/g, 'ss');
-    return title || userMessage.substring(0, 25);
+    const raw = await fetchViaBackend(titleMessages, 2);
+    if (raw) {
+      const title = raw.trim().split(/\s+/).slice(0, 5).join(' ').replace(/ß/g, 'ss');
+      return title || userMessage.substring(0, 25);
+    }
+    return userMessage.substring(0, 25) + (userMessage.length > 25 ? '...' : '');
   } catch {
     return userMessage.substring(0, 25) + (userMessage.length > 25 ? '...' : '');
   }
 }
+

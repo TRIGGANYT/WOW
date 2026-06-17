@@ -117,3 +117,42 @@
 .register-link a:hover {
   color: #56cfa5;
 }
+
+.login-separator {
+  text-align: center;
+  margin: 20px 0;
+  opacity: 0.6;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.login-separator::before,
+.login-separator::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--glass-border);
+  margin: 0 10px;
+}
+
+.btn-guest {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-white);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s, border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.btn-guest:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);
+}
+

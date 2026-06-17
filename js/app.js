@@ -33,7 +33,7 @@ function setupApp() {
   const app = document.getElementById('app');
 
   app.innerHTML = `
-    <img src="assets/images/logo.png" alt="WOW Logo" class="app-logo" id="app-logo" />
+    <a href="#/home" id="app-logo-link" aria-label="WOW Home"><img src="assets/images/logo.png" alt="WOW Logo" class="app-logo" id="app-logo" /></a>
     <div id="nav-container"></div>
     <div id="router-outlet"></div>
   `;
@@ -79,7 +79,7 @@ const noShellPages = ['/', '/register', '/verify'];
 
 function updateShell() {
   const path = getCurrentPath();
-  const logo = document.getElementById('app-logo');
+  const logo = document.getElementById('app-logo-link');
   const navContainer = document.getElementById('nav-container');
 
   const showShell = !noShellPages.includes(path) && isLoggedIn();

@@ -150,6 +150,85 @@ async function saveConversation(firstMessageText) {
   }
 }
 
+// Rename a conversation
+export async function renameConversation(id, newTitle) {
+  try {
+    await apiFetch(`${API_URL}/${id}`, {
+      method: 'PUT',
+      body: { title: newTitle },
+    });
+    await loadConversations();
+  } catch (err) {
+    console.error('Error renaming conversation:', err);
+  }
+}
+
+// Move conversation to folder
+export async function moveToFolder(id, folderName) {
+  try {
+    await apiFetch(`${API_URL}/${id}`, {
+      method: 'PUT',
+      body: { folder: folderName || null },
+    });
+    await loadConversations();
+  } catch (err) {
+    console.error('Error moving conversation to folder:', err);
+  }
+}
+
+// ---- Folder management (DB-backed) ----
+const FOLDERS_URL = '/api/folders';
+let dbFolders = []; // { _id, name }
+
+export async function loadFolders() {
+  try {
+    dbFolders = await apiFetch(FOLDERS_URL);
+    notify();
+  } catch (err) {
+    console.error('Error loading folders:', err);
+  }
+}
+
+export function getDbFolders() {
+  return dbFolders;
+}
+
+export async function createFolder(name) {
+  try {
+    await apiFetch(FOLDERS_URL, {
+      method: 'POST',
+      body: { name },
+    });
+    await loadFolders();
+  } catch (err) {
+    console.error('Error creating folder:', err);
+  }
+}
+
+export async function renameFolder(id, newName) {
+  try {
+    await apiFetch(`${FOLDERS_URL}/${id}`, {
+      method: 'PUT',
+      body: { name: newName },
+    });
+    await loadFolders();
+    await loadConversations();
+  } catch (err) {
+    if (err.status === 409) alert('Ordner existiert bereits');
+    console.error('Error renaming folder:', err);
+  }
+}
+
+export async function deleteFolder(id) {
+  try {
+    await apiFetch(`${FOLDERS_URL}/${id}`, { method: 'DELETE' });
+    await loadFolders();
+    await loadConversations();
+  } catch (err) {
+    console.error('Error deleting folder:', err);
+  }
+}
+
 export function clearChat() {
   newConversation();
 }

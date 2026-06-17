@@ -11,6 +11,10 @@ const conversationSchema = new mongoose.Schema(
       type: String,
       default: 'Neuer Chat',
     },
+    folder: {
+      type: String,
+      default: null,
+    },
     messages: [
       {
         role: { type: String, enum: ['system', 'user', 'assistant'], required: true },

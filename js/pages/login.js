@@ -1,5 +1,5 @@
 // js/pages/login.js — replaces Angular LoginComponent
-import { login, saveToken, isLoggedIn } from '../services/auth.service.js';
+import { login, saveToken, isLoggedIn, loginAsGuest } from '../services/auth.service.js';
 import { navigateTo } from '../router.js';
 
 export function render(container) {
@@ -37,6 +37,8 @@ export function render(container) {
               <button type="submit" class="btn-login">Login</button>
               ${error ? `<p class="error">${error}</p>` : ''}
             </form>
+            <div class="login-separator">oder</div>
+            <button type="button" class="btn-guest" id="btn-guest">Als Gast fortfahren</button>
             <p class="register-link">
               Noch kein Konto? <a href="#/register">Registrieren</a>
             </p>
@@ -51,6 +53,16 @@ export function render(container) {
     container.querySelector('#toggle-password').addEventListener('click', () => {
       showPassword = !showPassword;
       renderPage();
+    });
+
+    container.querySelector('#btn-guest').addEventListener('click', async () => {
+      try {
+        await loginAsGuest();
+        navigateTo('/home');
+      } catch (err) {
+        error = 'Fehler beim Starten der Gastsitzung';
+        renderPage();
+      }
     });
 
     container.querySelector('#login-form').addEventListener('submit', async (e) => {
@@ -73,3 +85,4 @@ export function render(container) {
 
   renderPage();
 }
+

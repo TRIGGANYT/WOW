@@ -1,0 +1,464 @@
+/* ============================================================
+   large-screen.css – Responsive overrides for big displays
+   Applies on screens ≥ 1600px (Full-HD large) and ≥ 2560px (4K/Beamer).
+   Designed to make the WOW app easy to read from a distance.
+   Desktop code at normal sizes is 100% untouched.
+   ============================================================ */
+
+
+/* ============================================================
+   BREAKPOINT 1: Large Desktop / 1600px+
+   (e.g. Full-HD projector, large monitor)
+   ============================================================ */
+@media (min-width: 1600px) {
+
+  /* ---- Base Typography ---- */
+  html {
+    font-size: 18px;
+  }
+
+  /* ---- Navigation ---- */
+  .nav {
+    gap: 48px;
+    padding: 14px 36px;
+    font-size: 1.1rem;
+    right: 32px;
+    top: 32px;
+    border-radius: 40px;
+  }
+
+  /* ---- Home Page ---- */
+  .elf-link .elf {
+    max-height: 440px;
+  }
+
+  .elf-title-label {
+    font-size: 1rem;
+    letter-spacing: 4px;
+    margin-top: 130px;
+  }
+
+  .xp-bar-container {
+    width: 50px;
+    gap: 14px;
+  }
+
+  .xp-bar-container.left  { left: -80px; }
+  .xp-bar-container.right { right: -80px; }
+
+  .xp-progress {
+    width: 16px;
+    height: 380px;
+    border-radius: 8px;
+  }
+
+  .xp-title  { font-size: 0.78rem; }
+  .xp-value  { font-size: 0.72rem; }
+  .xp-icon i { font-size: 30px !important; }
+
+  .level-badge {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
+
+  /* ---- Login / Register / Verify ---- */
+  .login-box,
+  .register-box,
+  .verify-box {
+    max-width: 520px;
+    padding: 56px;
+    border-radius: 24px;
+  }
+
+  .login-box h2  { font-size: 2.6rem; margin-bottom: 40px; }
+  .login-box label { font-size: 1rem; }
+  .login-box input,
+  .register-box input { font-size: 1.1rem; padding: 16px 20px; border-radius: 10px; }
+
+  .btn-login,
+  .btn-register,
+  .btn-next,
+  .btn-verify {
+    font-size: 1.15rem;
+    padding: 18px;
+    border-radius: 10px;
+  }
+
+  /* ---- Profile Page ---- */
+  .profile-page {
+    padding: 110px 80px 60px;
+    gap: 48px;
+  }
+
+  .avatar-container {
+    width: 200px;
+    height: 200px;
+    border-width: 4px;
+  }
+
+  /* ---- Team UP / Cards ---- */
+  .page-teamup {
+    padding: 110px 80px 60px;
+  }
+
+  h1 { font-size: 2.8rem; }
+
+  .teams-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 32px;
+  }
+
+  .team-card {
+    padding: 32px 28px;
+    border-radius: 24px;
+  }
+
+  .team-icon { font-size: 3.5rem; }
+
+  .btn-create-team {
+    font-size: 1.2rem;
+    padding: 20px 32px;
+  }
+
+  /* ---- Chat / AI Coach ---- */
+  .page-chat {
+    padding: 2.5rem;
+    height: 88vh;
+  }
+
+  .chat-container {
+    max-width: 1100px;
+    border-radius: 28px;
+  }
+
+  .messages-area {
+    padding: 2rem 2.5rem;
+    gap: 1.5rem;
+  }
+
+  .message-bubble {
+    font-size: 1.1rem;
+    padding: 1.1rem 1.6rem;
+    border-radius: 24px;
+  }
+
+  .input-area {
+    padding: 1.25rem 2rem;
+  }
+
+  .input-area input {
+    font-size: 1.1rem;
+    padding: 1.1rem 1.5rem;
+    border-radius: 30px;
+  }
+
+  .input-area button {
+    width: 58px;
+    height: 58px;
+  }
+
+  .avatar {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+  }
+
+  .avatar-ai i { font-size: 1.4rem; }
+
+  /* ---- AI Coach Sidebar ---- */
+  .chat-sidebar.open {
+    width: 340px;
+    min-width: 340px;
+  }
+
+  .sidebar-toggle {
+    top: 120px;
+    left: 2.2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    font-size: 1.2rem;
+  }
+
+  .sidebar-label {
+    top: 120px;
+    left: calc(2.2rem + 70px);
+    font-size: 0.95rem;
+    letter-spacing: 3px;
+  }
+
+  .sidebar-header {
+    padding-top: 190px;
+  }
+
+  .history-title { font-size: 0.92rem; }
+  .history-date  { font-size: 0.78rem; }
+
+  .new-chat-btn {
+    font-size: 0.95rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+  }
+
+  /* ---- Team Detail ---- */
+  .team-detail-page {
+    padding: 100px 48px 48px;
+    gap: 36px;
+  }
+}
+
+
+/* ============================================================
+   BREAKPOINT 2: 4K / Beamer / Ultra-Wide (2560px+)
+   ============================================================ */
+@media (min-width: 2560px) {
+
+  /* ---- Base Typography ---- */
+  html {
+    font-size: 22px;
+  }
+
+  /* ---- Navigation ---- */
+  .nav {
+    gap: 64px;
+    padding: 18px 48px;
+    font-size: 1.25rem;
+    right: 48px;
+    top: 48px;
+    border-radius: 50px;
+  }
+
+  /* ---- Home Page ---- */
+  .elf-link .elf {
+    max-height: 580px;
+  }
+
+  .elf-title-label {
+    font-size: 1.2rem;
+    letter-spacing: 5px;
+    margin-top: 180px;
+  }
+
+  .xp-bar-container {
+    width: 64px;
+    gap: 18px;
+  }
+
+  .xp-bar-container.left  { left: -110px; }
+  .xp-bar-container.right { right: -110px; }
+
+  .xp-progress {
+    width: 20px;
+    height: 520px;
+    border-radius: 10px;
+  }
+
+  .xp-title  { font-size: 0.9rem; }
+  .xp-value  { font-size: 0.85rem; }
+  .xp-icon i { font-size: 38px !important; }
+
+  .level-badge {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+  }
+
+  /* ---- Login / Register / Verify ---- */
+  .login-box,
+  .register-box,
+  .verify-box {
+    max-width: 680px;
+    padding: 72px;
+    border-radius: 32px;
+  }
+
+  .login-box h2  { font-size: 3.4rem; margin-bottom: 52px; }
+  .login-box label { font-size: 1.2rem; }
+  .login-box input,
+  .register-box input { font-size: 1.3rem; padding: 20px 24px; border-radius: 14px; }
+
+  .btn-login,
+  .btn-register,
+  .btn-next,
+  .btn-verify {
+    font-size: 1.4rem;
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  /* ---- Profile Page ---- */
+  .profile-page {
+    padding: 140px 120px 80px;
+    gap: 72px;
+  }
+
+  .avatar-container {
+    width: 280px;
+    height: 280px;
+    border-width: 5px;
+  }
+
+  /* ---- Team UP / Cards ---- */
+  .page-teamup {
+    padding: 140px 120px 80px;
+  }
+
+  h1 { font-size: 3.6rem; }
+
+  .teams-grid {
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 48px;
+  }
+
+  .team-card {
+    padding: 48px 40px;
+    border-radius: 32px;
+  }
+
+  .team-icon { font-size: 4.5rem; }
+
+  .btn-create-team {
+    font-size: 1.5rem;
+    padding: 26px 48px;
+  }
+
+  /* ---- Chat / AI Coach ---- */
+  .page-chat {
+    padding: 3rem;
+    height: 88vh;
+  }
+
+  .chat-container {
+    max-width: 1600px;
+    border-radius: 36px;
+  }
+
+  .messages-area {
+    padding: 2.5rem 3.5rem;
+    gap: 2rem;
+  }
+
+  .message-bubble {
+    font-size: 1.35rem;
+    line-height: 1.6;
+    padding: 1.4rem 2rem;
+    border-radius: 28px;
+    max-width: 70%;
+  }
+
+  .input-area {
+    padding: 1.5rem 2.5rem;
+  }
+
+  .input-area input {
+    font-size: 1.35rem;
+    padding: 1.4rem 2rem;
+    border-radius: 40px;
+  }
+
+  .input-area button {
+    width: 72px;
+    height: 72px;
+  }
+
+  .input-area button::after {
+    width: 18px;
+    height: 18px;
+    border-top-width: 4px;
+    border-right-width: 4px;
+  }
+
+  .avatar {
+    width: 66px;
+    height: 66px;
+    min-width: 66px;
+  }
+
+  .avatar-ai i { font-size: 1.8rem; }
+  .avatar-ai  { margin-right: 1.25rem; }
+  .avatar-user { margin-left: 1.25rem; }
+
+  /* Spinner size */
+  .spinner {
+    width: 28px;
+    height: 28px;
+    border-width: 4px;
+  }
+
+  /* ---- AI Coach Sidebar ---- */
+  .chat-sidebar.open {
+    width: 420px;
+    min-width: 420px;
+  }
+
+  .sidebar-toggle {
+    top: 150px;
+    left: 2.8rem;
+    width: 62px;
+    height: 62px;
+    border-radius: 18px;
+    font-size: 1.5rem;
+  }
+
+  .sidebar-label {
+    top: 150px;
+    left: calc(2.8rem + 84px);
+    font-size: 1.1rem;
+    letter-spacing: 4px;
+  }
+
+  .sidebar-header {
+    padding-top: 230px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .history-title { font-size: 1.05rem; }
+  .history-date  { font-size: 0.88rem; }
+  .history-item  { padding: 1rem 1rem; border-radius: 14px; }
+
+  .new-chat-btn {
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 14px;
+  }
+
+  .new-folder-btn {
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    font-size: 1.1rem;
+    border-radius: 14px;
+  }
+
+  .folder-header {
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+  }
+
+  /* ---- Team Detail ---- */
+  .team-detail-page {
+    padding: 140px 72px 72px;
+    gap: 56px;
+  }
+
+  /* ---- Modals ---- */
+  .modal-content,
+  .edit-modal {
+    padding: 56px;
+    border-radius: 32px;
+    max-width: 760px;
+  }
+
+  /* ---- Inputs globally ---- */
+  input,
+  textarea,
+  select {
+    font-size: 1.2rem;
+  }
+
+  button {
+    font-size: 1.1rem;
+  }
+}

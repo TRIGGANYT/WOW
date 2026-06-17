@@ -39,6 +39,11 @@ export async function checkAvailable(email, username) {
   return apiFetch(`${API_URL}/check-available?${params.toString()}`);
 }
 
+export async function loginAsGuest() {
+  saveToken('guest_mode_token');
+  return { accessToken: 'guest_mode_token' };
+}
+
 export function saveToken(token) {
   sessionStorage.setItem(TOKEN_KEY, token);
 }
@@ -54,3 +59,4 @@ export function logout() {
 export function isLoggedIn() {
   return !!getToken();
 }
+

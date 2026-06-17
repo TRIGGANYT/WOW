@@ -70,6 +70,10 @@ export function render(container) {
 
     // Event listeners
     container.querySelector('#btn-create-team')?.addEventListener('click', () => {
+      if (currentUser?.isGuest) {
+        alert('Um ein eigenes Team zu erstellen, erstelle bitte ein kostenloses WOW-Konto.');
+        return;
+      }
       showCreateModal = true;
       renderPage();
     });
@@ -77,6 +81,10 @@ export function render(container) {
     // Team card buttons
     container.querySelectorAll('.btn-join').forEach(btn => {
       btn.addEventListener('click', async () => {
+        if (currentUser?.isGuest) {
+          alert('Um an Teams teilzunehmen, erstelle bitte ein kostenloses WOW-Konto.');
+          return;
+        }
         const teamId = btn.dataset.teamId;
         try {
           await teamService.joinTeam(teamId);
