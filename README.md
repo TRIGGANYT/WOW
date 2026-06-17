@@ -2,7 +2,7 @@
 
 Eine Plattform für Lernen durch Dialog. Hier steht der Austausch im Mittelpunkt – sei es mit anderen Lernenden in Teams oder mit dem AI-Coach. Das Wissen entsteht nicht durch Pauken, sondern durch Kommunikation.
 
-![WOW App Screenshot](assets/images/wow_team_chat.png)
+![WOW App Screenshot](assets/images/wow_home.png)
 
 ## 💡 Philosophie
 
@@ -26,17 +26,21 @@ Lernen passiert am besten im Gespräch. WOW fördert diesen Austausch:
 
 Hier sind einige Eindrücke aus der WOW App:
 
-### 1. Team-Up Übersicht
+### 1. Home-Bereich (Startseite)
+![Home-Bereich](assets/images/wow_home.png)
+
+### 2. Team-Up Übersicht
 ![Team-Up Übersicht](assets/images/wow_teamup_overview.png)
 
-### 2. Team-Chat & Challenges
+### 3. Team-Chat & Challenges
 ![Team-Chat & Challenges](assets/images/wow_team_chat.png)
 
-### 3. AI-Mentor (Dialogpartner)
+### 4. AI-Mentor (Dialogpartner)
 ![AI-Mentor](assets/images/wow_ai_mentor.png)
 
-### 4. Avatar & Levelentwicklung (Profil)
+### 5. Avatar & Levelentwicklung (Profil)
 ![Avatar & Levelentwicklung](assets/images/wow_profile.png)
+
 
 ## 🛠️ Tech Stack
 
