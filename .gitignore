@@ -43,3 +43,16 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Debug and temporary files
+debug_scripts/
+*.bin
+dump_out2.js
+dump_status.js
+find_bad_files.js
+find_corrupt_files.js
+find_corrupt_head.js
+remove_corrupt_files.js
+files.txt
+out.txt
+
