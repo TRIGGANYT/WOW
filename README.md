@@ -2,7 +2,7 @@
 
 Eine Plattform für Lernen durch Dialog. Hier steht der Austausch im Mittelpunkt – sei es mit anderen Lernenden in Teams oder mit dem AI-Coach. Das Wissen entsteht nicht durch Pauken, sondern durch Kommunikation.
 
-![WOW App Screenshot](src/assets/images/wow-background.png)
+![WOW App Screenshot](assets/images/wow_team_chat.png)
 
 ## 💡 Philosophie
 
@@ -22,11 +22,27 @@ Lernen passiert am besten im Gespräch. WOW fördert diesen Austausch:
   - **Mentor XP**: Für das Erklären und Helfen im Dialog.
 - **Sicherer Austausch 🔐**: Verifizierte Accounts (Email-Code) für eine vertrauensvolle Umgebung.
 
+## 📸 Screenshots
+
+Hier sind einige Eindrücke aus der WOW App:
+
+### 1. Team-Up Übersicht
+![Team-Up Übersicht](assets/images/wow_teamup_overview.png)
+
+### 2. Team-Chat & Challenges
+![Team-Chat & Challenges](assets/images/wow_team_chat.png)
+
+### 3. AI-Mentor (Dialogpartner)
+![AI-Mentor](assets/images/wow_ai_mentor.png)
+
+### 4. Avatar & Levelentwicklung (Profil)
+![Avatar & Levelentwicklung](assets/images/wow_profile.png)
+
 ## 🛠️ Tech Stack
 
 - **Frontend**:
-  - Angular 19 (Standalone Components, Signals)
-  - TypeScript
+  - HTML5 & Vanilla CSS (Custom Design, responsive Layouts)
+  - Vanilla JavaScript (ES6 Modules, clientseitiger Router, State Management)
   - Custom UI (Fokus auf Lesbarkeit und Ästhetik)
 - **Backend**:
   - Node.js & Express
@@ -77,20 +93,18 @@ npm run dev
 
 ### 3. App starten
 
-```bash
-cd ..
-npm install
-ng serve
-```
+Da das Backend die statischen Frontend-Dateien direkt ausliefert, musst du das Frontend nicht separat starten. 
 
-Öffne `http://localhost:4200` für den Dialog.
+Sobald der Backend-Server läuft (siehe Schritt 2), kannst du die App im Browser aufrufen:
+- **URL**: `http://localhost:3000` (oder den in der `.env` konfigurierten Port)
 
 ## 📂 Struktur
 
-- `src/app/aicoach`: Der KI-Dialogpartner
-- `src/app/teamup`: Die Team-Chat-Räume
-- `src/app/profile`: Dein Avatar und Fortschritt
-- `backend/`: API für Nachrichten und Benutzerdaten
+- `index.html`: Haupt-HTML-Datei und Einstiegspunkt der Anwendung.
+- `js/`: Clientseitige Logik (Router, Pages, Komponenten und Services).
+- `css/`: Custom Styling der Benutzeroberfläche.
+- `assets/`: App-Ressourcen (Bilder, Icons, Favicon).
+- `backend/`: Node.js Express Server, Routen und MongoDB Mongoose-Modelle.
 
 ## 🤝 Mitwirken
 

@@ -1,4 +1,13 @@
 require('dotenv').config();
+const dns = require('dns');
+
+// Configure DNS servers to prevent querySrv ECONNREFUSED on local system
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+} catch (err) {
+  console.warn('Failed to set DNS servers:', err);
+}
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -8,6 +17,7 @@ const helmet = require('helmet');
 const authRoutes = require('./routes/auth');
 const teamRoutes = require('./routes/teams');
 const conversationRoutes = require('./routes/conversations');
+const folderRoutes = require('./routes/folders');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,6 +37,7 @@ app.use(express.static(path.join(__dirname, '..')));
 app.use('/api/auth', authRoutes);
 app.use('/api/teams', teamRoutes);
 app.use('/api/conversations', conversationRoutes);
+app.use('/api/folders', folderRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
